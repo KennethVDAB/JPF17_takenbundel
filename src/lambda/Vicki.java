@@ -1,0 +1,20 @@
+package lambda;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+public class Vicki {
+    private static final Path PATH = Path.of("/data/acteurs-actrices.csv");
+
+    public static void main(String[] args) {
+        try (var stream = Files.lines(PATH)) {
+            System.out.println(
+                    stream.map(regel -> regel.split(";")[0])
+                            .anyMatch("Vicki"::equals)
+                            ? "komt voor" : "komt niet voor");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+}
